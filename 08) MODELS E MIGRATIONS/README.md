@@ -68,3 +68,99 @@ tarefas_nao_concluidas = Tarefa.objects.filter(concluida=False)
 ```
 
 Essas são as etapas básicas para criar modelos e executar migrações em um projeto Django. À medida que você desenvolve seu aplicativo, pode criar modelos adicionais e executar migrações conforme necessário para refletir as mudanças na estrutura de dados. O Django facilita a interação com bancos de dados e a criação de aplicativos com funcionalidades de banco de dados robustas.
+
+**2º Exemplo**    
+Vamos dar sequencia a um outra exemplos, analisando o cenario abaixo para o desenvolvimento do Model 
+
+**EmpresaTI:** Representa a empresa de tecnologia.
+**Desenvolvedor:** Representa os desenvolvedores que trabalham na empresa.
+**Projeto:** Representa os projetos, que têm uma relação ManyToMany com os desenvolvedores e uma ForeignKey com a empresa.
+
+**Modelos:**
+EmpresaTI: Representa a empresa de tecnologia.
+Desenvolvedor: Representa os desenvolvedores que trabalham na empresa.
+Projeto: Representa os projetos, que têm uma relação ManyToMany com os desenvolvedores e uma ForeignKey com a empresa.
+
+Criando Modelo Empresa para um campo nome 
+
+```python
+from django.db import models
+
+class EmpresaTI(models.Model):
+    nome = models.CharField(max_length=100)
+
+    def __str__(self):
+        return self.nome
+```
+**Campos:**
+nome: Campo de texto (CharField) que armazena o nome da empresa. O tamanho máximo permitido é 100 caracteres.
+**Métodos:**
+__str__: Método especial que retorna o nome da empresa quando a instância é convertida em string, facilitando a leitura dos dados.
+
+**Vamos analisar uma consultar via shell**
+
+Via terminal carregamos o modulo Shell - Abra o Shell do Django
+
+```Terminal ou CMD  - Abra o Shell do Django
+
+python manage.py shell
+
+```
+Logo apos carregamos o model no shell - Importe o Modelo
+
+Seguindo a seguinte sintaxe
+
+```Sintaxe
+
+from nome_aplicacao.models import nome_model  <enter>
+
+```
+Nosso exemplo que nosso model esta numa aplicação chamado appexemplo e carregamos nosso model EmpresaTI
+```Python
+
+from appexemplo.models import EmpresaTI  <enter>
+
+```
+
+**Inserindo dados no Model**
+
+Para inserir dados no modelo EmpresaTI, você precisará seguir alguns passos básicos. Primeiro, certifique-se de que seu ambiente de desenvolvimento Django esteja configurado e que você tenha criado e aplicado as migrações para seus modelos.
+
+**Passos para Inserir Dados:**
+1-Abra o Shell do Django: O shell interativo do Django permite que você trabalhe diretamente com seus modelos.
+2-Importe o Modelo: Importe o modelo EmpresaTI no shell.
+3-Crie e Salve Instâncias: Crie instâncias do modelo e salve-as no banco de dados.
+
+**Crie e Salve Instâncias:**
+
+Crie novas instâncias do modelo EmpresaTI e salve-as no banco de dados:
+
+``` Python - # Criação de uma nova empresa
+empresa1 = EmpresaTI(nome="Tech Innovators")
+empresa1.save()
+```
+
+```Python - # Criação de outra empresa
+empresa2 = EmpresaTI(nome="Future Solutions")
+empresa2.save()
+```
+
+**Verifique os Dados Inseridos:**
+
+Para verificar se os dados foram inseridos corretamente, você pode consultar o banco de dados:
+
+```Python - # Recuperar todas as empresas
+empresas = EmpresaTI.objects.all()
+
+print(empresas) ou empresas
+```
+
+Usando o For
+```Python - # Recuperar todas as empresas
+# Recuperar todas as empresas
+empresas = EmpresaTI.objects.all()
+for empresa in empresas:
+    print(empresa.nome)
+```
+
+
