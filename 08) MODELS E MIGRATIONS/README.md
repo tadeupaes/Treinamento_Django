@@ -74,12 +74,16 @@ Essas são as etapas básicas para criar modelos e executar migrações em um pr
 Vamos dar sequencia a um outra exemplos, analisando o cenario abaixo para o desenvolvimento do Model 
 
 **EmpresaTI:** Representa a empresa de tecnologia.
+
 **Desenvolvedor:** Representa os desenvolvedores que trabalham na empresa.
+
 **Projeto:** Representa os projetos, que têm uma relação ManyToMany com os desenvolvedores e uma ForeignKey com a empresa.
 
 **Modelos:**
 EmpresaTI: Representa a empresa de tecnologia.
+
 Desenvolvedor: Representa os desenvolvedores que trabalham na empresa.
+
 Projeto: Representa os projetos, que têm uma relação ManyToMany com os desenvolvedores e uma ForeignKey com a empresa.
 
 Criando Modelo Empresa para um campo nome 
@@ -129,7 +133,9 @@ Para inserir dados no modelo EmpresaTI, você precisará seguir alguns passos b�
 
 **Passos para Inserir Dados:**
 1-Abra o Shell do Django: O shell interativo do Django permite que você trabalhe diretamente com seus modelos.
+
 2-Importe o Modelo: Importe o modelo EmpresaTI no shell.
+
 3-Crie e Salve Instâncias: Crie instâncias do modelo e salve-as no banco de dados.
 
 **Crie e Salve Instâncias:**
@@ -214,7 +220,9 @@ class Linguagem(models.Model):
 Desenvolvedor:
 
 nome: Campo de texto para o nome do desenvolvedor.
+
 empresa: Chave estrangeira para a EmpresaTI, indicando a qual empresa o desenvolvedor pertence.
+
 linguagens: Relação ManyToMany com Linguagem, indicando que um desenvolvedor pode dominar várias linguagens de programação.
 
 ```Python
