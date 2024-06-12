@@ -1,6 +1,42 @@
-# INTRODUÇÃO, INSTALAÇÃO E CONFIGURAÇÃO
+# INICIANDO NO MUNDO DJANGO - INTRODUÇÃO, INSTALAÇÃO E CONFIGURAÇÃO
+
 ## Introdução ao Django:
-Django é conhecido por seguir o princípio "batteries-included", o que significa que ele fornece uma série de funcionalidades prontas para uso, como autenticação de usuário, sistema de administração, ORM (Object-Relational Mapping), e muito mais. Ele segue o padrão de projeto Model-View-Controller (MVC) e é projetado para promover um código limpo, reutilizável e organizado.
+Django é conhecido por seguir o princípio "batteries-included", o que significa que ele fornece uma série de funcionalidades prontas para uso, como autenticação de usuário, sistema de administração, ORM (Object-Relational Mapping), e muito mais. Ele segue o padrão de projeto Model-View-Template (MVT) e é projetado para promover um código limpo, reutilizável e organizado.
+
+
+##Criando um Projeto Django em um Ambiente Virtual Python (venv)
+
+Usar um ambiente virtual (venv) para projetos Django é uma prática recomendada, pois ele isola as dependências do projeto e evita conflitos entre diferentes projetos. Aqui estão as etapas detalhadas para configurar um projeto Django em um ambiente virtual.
+
+Passos:
+01-Instalar Python e pip: Certifique-se de que Python e pip (gerenciador de pacotes do Python) estejam instalados no seu sistema.
+
+```Python
+python --version
+pip --version
+```
+
+02-Criar um Ambiente Virtual: Use venv para criar um ambiente virtual, onde vprojeto nome do seu ambiente. Nas questões relacionandas a django não confunda o projeto do django com ambiente virtual criado 
+
+```Python
+python -m venv ambiente
+```
+
+03-Ativar o Ambiente Virtual:
+
+```WIndows
+
+ambiente\Scripts\activate
+
+```
+
+```Macos e Linux
+
+source myenv/bin/activate
+
+```
+Nesse momento podera ir para processo de instalação do django.
+
 
 ## Instalação do Django:
 Para começar a usar o Django, siga estas etapas para instalar o framework:
