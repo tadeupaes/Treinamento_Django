@@ -1,4 +1,5 @@
 # MODELS E MIGRATIONS
+
 Os modelos (models) e as migrações são componentes essenciais em um projeto Django. Os modelos são responsáveis por definir a estrutura dos dados que serão armazenados no banco de dados, enquanto as migrações são usadas para criar ou modificar a estrutura do banco de dados de acordo com as definições dos modelos. Vou explicar como criar modelos e executar migrações em um projeto Django:
 
 **1. Criando Modelos:**
@@ -149,18 +150,113 @@ empresa2.save()
 
 Para verificar se os dados foram inseridos corretamente, você pode consultar o banco de dados:
 
-```Python - # Recuperar todas as empresas
+```Python - # 01 - Recuperar todas as empresas
 empresas = EmpresaTI.objects.all()
 
 print(empresas) ou empresas
 ```
 
+```Python - # 02 - Recuperar todas as empresas
+empresas = EmpresaTI.objects.all()
+
+empresas
+```
+
+
 Usando o For
-```Python - # Recuperar todas as empresas
+```Python - # 03 - Recuperar todas as empresas
 # Recuperar todas as empresas
 empresas = EmpresaTI.objects.all()
 for empresa in empresas:
     print(empresa.nome)
 ```
+
+**CRIANDO MAIS MODEL E SEUS RELACIONAMENTOS E MELHORANDO OS FILTROS**
+
+Vamos analisar o seguint cenario para uso e explicação de cada campo : 
+
+
+**Nosso primeiro Class Model  - Empresa Ti**
+
+EmpresaTI:
+
+nome: Campo de texto para o nome da empresa de tecnologia.
+
+```Python
+
+class EmpresaTI(models.Model):
+    nome = models.CharField(max_length=100)
+
+    def __str__(self):
+        return self.nome
+
+
+```
+
+
+**Segundo Class Model Linguaguem**
+
+Linguagem:
+
+nome: Campo de texto para o nome da linguagem de programação.
+
+```Python
+class Linguagem(models.Model):
+    nome = models.CharField(max_length=50)
+
+    def __str__(self):
+        return self.nome
+
+```
+
+**Terceiro Class Model Desenvolvedor:**
+
+Desenvolvedor:
+
+nome: Campo de texto para o nome do desenvolvedor.
+empresa: Chave estrangeira para a EmpresaTI, indicando a qual empresa o desenvolvedor pertence.
+linguagens: Relação ManyToMany com Linguagem, indicando que um desenvolvedor pode dominar várias linguagens de programação.
+
+```Python
+
+class Desenvolvedor(models.Model):
+    nome = models.CharField(max_length=100)
+    empresa = models.ForeignKey(EmpresaTI, on_delete=models.CASCADE)
+    linguagens = models.ManyToManyField('Linguagem')
+
+    def __str__(self):
+        return self.nome
+
+```
+
+**Quarto Class Model Projeto:**
+
+Projeto:
+
+titulo: Campo de texto para o título do projeto.
+empresa: Chave estrangeira para a EmpresaTI, indicando a qual empresa o projeto pertence.
+desenvolvedores: Relação ManyToMany com Desenvolvedor, indicando que um projeto pode ter vários desenvolvedores e um desenvolvedor pode participar de vários projetos.
+
+```Python
+
+class Projeto(models.Model):
+    titulo = models.CharField(max_length=200)
+    empresa = models.ForeignKey(EmpresaTI, on_delete=models.CASCADE)
+    desenvolvedores = models.ManyToManyField(Desenvolvedor)
+
+    def __str__(self):
+        return self.titulo
+
+```
+
+
+**Explicando as relações**
+
+EmpresaTI: Uma empresa pode ter muitos desenvolvedores e muitos projetos.
+Desenvolvedor: Um desenvolvedor trabalha para uma empresa e pode conhecer várias linguagens de programação.
+Linguagem: Uma linguagem pode ser conhecida por muitos desenvolvedores.
+Projeto: Um projeto é realizado por uma empresa e pode envolver vários desenvolvedores.
+
+Essa modelagem permite uma flexibilidade significativa ao lidar com as relações complexas entre empresas, desenvolvedores, linguagens de programação e projetos em um ambiente de desenvolvimento de software.
 
 
