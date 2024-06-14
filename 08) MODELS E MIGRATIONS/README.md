@@ -29,13 +29,183 @@ class Musician(models.Model):
 
 **Tipos de campos**
 
+**Campos de Texto**
+CharField: Um campo de texto com tamanho limitado.
+
+```Python
+from django.db import models
+
+class ExampleModel(models.Model):
+    nome = models.CharField(max_length=100)
+```
+    
+TextField: Um campo de texto sem limite de tamanho.
+
+```Python
+class ExampleModel(models.Model):
+    descricao = models.TextField()
+ ```
+   
+2. Campos Numéricos
+   
+IntegerField: Um campo para armazenar números inteiros.
+
+```Python
+class ExampleModel(models.Model):
+    idade = models.IntegerField()
+```
+
+FloatField: Um campo para armazenar números de ponto flutuante.
+
+```Python
+class ExampleModel(models.Model):
+    preco = models.FloatField()
+```
+    
+DecimalField: Um campo para armazenar números decimais com precisão fixa.
+
+```Python
+class ExampleModel(models.Model):
+    preco = models.DecimalField(max_digits=10, decimal_places=2)
+```
+
+3. Campos de Data e Hora
+DateField: Um campo para armazenar datas.
+
+```Python
+class ExampleModel(models.Model):
+    data_nascimento = models.DateField()
+```
+
+   
+DateTimeField: Um campo para armazenar data e hora.
+
+```Python
+
+class ExampleModel(models.Model):
+    data_criacao = models.DateTimeField(auto_now_add=True)
+    data_atualizacao = models.DateTimeField(auto_now=True)
+```
+  
+4. Campos Booleanos
+BooleanField: Um campo para armazenar valores booleanos (True ou False).
+
+```Python
+class ExampleModel(models.Model):
+    ativo = models.BooleanField(default=True)
+ ```
+
+5. Campos Relacionais
+ForeignKey: Um campo para criar uma relação de muitos-para-um com outro modelo.
+
+```Python
+
+class Company(models.Model):
+    nome = models.CharField(max_length=100)
+
+class Employee(models.Model):
+    nome = models.CharField(max_length=100)
+    empresa = models.ForeignKey(Company, on_delete=models.CASCADE)
+
+```
+    
+ManyToManyField: Um campo para criar uma relação de muitos-para-muitos com outro modelo.
+
+```Python
+class Project(models.Model):
+    nome = models.CharField(max_length=100)
+    desenvolvedores = models.ManyToManyField('Developer')
+
+class Developer(models.Model):
+    nome = models.CharField(max_length=100)
+
+```
+    
+OneToOneField: Um campo para criar uma relação de um-para-um com outro modelo.
+
+```Python
+class Profile(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    bio = models.TextField()
+```
+   
+6. Outros Campos Úteis
+EmailField: Um campo para armazenar endereços de e-mail.
+
+```Python
+class ExampleModel(models.Model):
+    email = models.EmailField()
+```    
+URLField: Um campo para armazenar URLs.
+
+```Python
+class ExampleModel(models.Model):
+    site = models.URLField()
+ ```   
+ImageField: Um campo para armazenar caminhos para arquivos de imagem.
+
+```Python
+class ExampleModel(models.Model):
+    imagem = models.ImageField(upload_to='imagens/')
+```
+   
+FileField: Um campo para armazenar caminhos para arquivos genéricos.
+
+```Python 
+class ExampleModel(models.Model):
+    arquivo = models.FileField(upload_to='arquivos/')
+```
+
+Exemplo Completo
+
+```Python
+from django.db import models
+
+class M_Empresa(models.Model):
+    nome = models.CharField(max_length=100)
+    site = models.URLField()
+
+class M_Linguagem(models.Model):
+    nome = models.CharField(max_length=100)
+
+class M_Desenvolvedor(models.Model):
+    nome = models.CharField(max_length=100)
+    empresa = models.ForeignKey(M_Empresa, on_delete=models.CASCADE)
+    linguagem = models.ManyToManyField(M_Linguagem)
+    email = models.EmailField()
+    ativo = models.BooleanField(default=True)
+    data_nascimento = models.DateField()
+    salario = models.DecimalField(max_digits=10, decimal_places=2)
+
+    class Meta:
+        verbose_name = 'Desenvolvedor'
+        verbose_name_plural = 'Desenvolvedores'
+        ordering = ['nome']
+
+    def __str__(self):
+        return self.nome
+
+    def get_linguagens(self):
+        return ", ".join([linguagem.nome for linguagem in self.linguagem.all()])
+    get_linguagens.short_description = 'Linguagens'
+```    
+
+E no admin.py:
+
+```Python
+from django.contrib import admin
+from .models import M_Desenvolvedor
+
+class DesenvolvedorAdmin(admin.ModelAdmin):
+    list_display = ('nome', 'empresa', 'get_linguagens', 'email', 'ativo', 'data_nascimento', 'salario')
+    search_fields = ('nome', 'empresa__nome', 'linguagem__nome')
+
+admin.site.register(M_Desenvolvedor, DesenvolvedorAdmin)
+
+```
 
 
-
-
-
-
-Dando Continuidade
+Agora com todos os campos discutidos vamos criar nossos modelos
 
 **1. Criando Modelos:**
 
