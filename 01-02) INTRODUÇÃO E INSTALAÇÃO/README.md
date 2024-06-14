@@ -1,3 +1,5 @@
+Baseado num fork fiz algumas correções,modificações e implementações
+
 # INICIANDO NO MUNDO DJANGO - INTRODUÇÃO, INSTALAÇÃO E CONFIGURAÇÃO
 
 ## Introdução ao Django:
