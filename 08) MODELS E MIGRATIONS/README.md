@@ -2,7 +2,43 @@
 
 Os modelos (models) e as migrações são componentes essenciais em um projeto Django. Os modelos são responsáveis por definir a estrutura dos dados que serão armazenados no banco de dados, enquanto as migrações são usadas para criar ou modificar a estrutura do banco de dados de acordo com as definições dos modelos. Vou explicar como criar modelos e executar migrações em um projeto Django:
 
+***Segundo a documentação** 
+
+Um modelo é um único e definitiva fonte de dados sobre os seus dados, Ele contém os campos e comportamentos essenciais dos dados que você está armazenando. Em geral, cada modelo mapeia para uam única tabela no seu banco de dados.
+
+O básico
+
+Cada modelo é uma classe Python que herda django.db.models.Model.
+Cada atributo de um modelo representa um campo no banco de dados.
+Com tudo isso, Django lhe dá uma API de acesso ao banco de dados gerada automaticamente
+
+**Campos**
+
+A parte mais importante de um modelo – e a única parte requerida de um modelo – é a lista de campos de banco de dados que ele define. Campos são especificados através de atributos de classe. Cuidado para não escolher nomes de campos que conflitem com a API dos modelos like clean, save, ou delete.
+
+Exemplo
+
+```Python
+from django.db import models
+
+class Musician(models.Model):
+    first_name = models.CharField(max_length=50)
+    last_name = models.CharField(max_length=50)
+    instrument = models.CharField(max_length=100)
+```
+
+**Tipos de campos**
+
+
+
+
+
+
+
+Dando Continuidade
+
 **1. Criando Modelos:**
+
 
 Os modelos são criados em um aplicativo Django no arquivo `models.py`. Cada modelo representa uma tabela no banco de dados e define os campos e relacionamentos dessa tabela. Aqui está um exemplo simples de um modelo que representa uma lista de tarefas:
 
