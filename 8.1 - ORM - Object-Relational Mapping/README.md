@@ -80,6 +80,88 @@ Utilizando filtros e consultas avançadas.
 ...     print(empresa.nome, empresa.data_fundacao)
 ...
 
+```
+
+## Relações Many-to-Many e ForeignKey
+
+### Definição de Modelos com Relações
+
+Vamos definir dois novos modelos `Autor` e `Livro` para ilustrar as relações Many-to-Many e ForeignKey.
+
+```python
+from django.db import models
+
+class Autor(models.Model):
+    nome = models.CharField(max_length=100)
+
+    def __str__(self):
+        return self.nome
+
+class Livro(models.Model):
+    titulo = models.CharField(max_length=200)
+    autores = models.ManyToManyField(Autor)
+    editora = models.ForeignKey('Editora', on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.titulo
+
+class Editora(models.Model):
+    nome = models.CharField(max_length=100)
+
+    def __str__(self):
+        return self.nome
+```
+
+### Inserção de Objetos com Relações
+
+#### Inserção de Objetos com ForeignKey
+
+```python
+# Usando o shell do Django
+$ python manage.py shell
+
+>>> from app.models import Editora, Livro
+>>> nova_editora = Editora(nome="Editora Exemplo")
+>>> nova_editora.save()
+>>> novo_livro = Livro(titulo="Título do Livro", editora=nova_editora)
+>>> novo_livro.save()
+```
+
+#### Inserção de Objetos com Many-to-Many
+
+```python
+>>> from app.models import Autor, Livro
+>>> autor1 = Autor(nome="Autor Um")
+>>> autor2 = Autor(nome="Autor Dois")
+>>> autor1.save()
+>>> autor2.save()
+>>> livro = Livro.objects.get(titulo="Título do Livro")
+>>> livro.autores.add(autor1, autor2)
+```
+
+### Consultas com Relações
+
+#### Consultas com ForeignKey
+
+```python
+>>> from app.models import Livro
+>>> livro = Livro.objects.get(id=1)
+>>> print(livro.titulo, livro.editora.nome)
+```
+
+#### Consultas com Many-to-Many
+
+```python
+>>> from app.models import Livro
+>>> livro = Livro.objects.get(id=1)
+>>> for autor in livro.autores.all():
+...     print(autor.nome)
+...
+```
+
+Com esses exemplos, você pode ver como definir e manipular relações Many-to-Many e ForeignKey usando o Django ORM.
+
+
 # Ordenar empresas por nome
 >>> empresas_ordenadas = Empresa.objects.all().order_by('nome')
 >>> for empresa in empresas_ordenadas:
